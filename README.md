@@ -1,4 +1,4 @@
-# 🎮 Retro Tetris [link to Game](https://retrotetris.tiiny.site)
+# 🎮 Retro Tetris [(link to Game)](https://retrotetris.tiiny.site)
 
 Welcome to my **Retro Tetris**! I remember playing it on a piece of tetris game console back when I was a kid. Feeling inspired I made the online version using **HTML**, **CSS**, and **JavaScript**. 🚀
 
