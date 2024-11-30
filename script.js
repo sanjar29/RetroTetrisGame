@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPiece;
   let gameInterval;
 
-  // Tetromino shapes
   const tetrominoes = [
     [[1, 1, 1], [0, 1, 0]], // T-shape
     [[0, 2, 2], [2, 2, 0]], // Z-shape
@@ -31,13 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     [[6, 6, 6], [6, 0, 0]], // L-shape
     [[7, 7, 7], [0, 0, 7]] // J-shape
   ];
-
-  // Helper function to create the grid
+  
   const initializeGrid = () => {
     grid = Array.from({ length: rows }, () => Array(cols).fill(0));
   };
 
-  // Helper function to draw the grid and pieces
   const drawGrid = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let r = 0; r < rows; r++) {
@@ -52,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Draw current piece on the grid
   const drawPiece = (piece, offset) => {
     piece.shape.forEach((row, r) => {
       row.forEach((value, c) => {
@@ -66,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Create a new random piece
   const createPiece = () => {
     const index = Math.floor(Math.random() * tetrominoes.length);
     return {
@@ -76,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   };
 
-  // Collision detection
   const isCollision = (piece, offset) => {
     return piece.shape.some((row, r) => {
       return row.some((value, c) => {
@@ -90,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Merge piece into the grid
   const mergePiece = (piece) => {
     piece.shape.forEach((row, r) => {
       row.forEach((value, c) => {
@@ -101,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Clear full rows
   const clearRows = () => {
     for (let r = rows - 1; r >= 0; r--) {
       if (grid[r].every(cell => cell !== 0)) {
@@ -111,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Drop the piece
   const dropPiece = () => {
     if (!isCollision(currentPiece, { x: 0, y: 1 })) {
       currentPiece.y++;
@@ -127,12 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-   // Close instructions popup
    closePopupButton.addEventListener('click', () => {
     instructionsPopup.classList.add('hidden');
   });
 
-  // Move the piece
   const movePiece = (direction) => {
     const offset = { x: direction, y: 0 };
     if (!isCollision(currentPiece, offset)) {
@@ -144,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     instructionsPopup.classList.remove('hidden');
   });
 
-  // Rotate the piece
   const rotatePiece = () => {
     const rotatedShape = currentPiece.shape[0].map((_, index) =>
       currentPiece.shape.map(row => row[index]).reverse()
@@ -156,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Key controls
   document.addEventListener('keydown', (event) => {
     if (!gamePaused) {
       if (event.key === 'ArrowLeft') movePiece(-1);
@@ -166,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Game loop
   const gameLoop = () => {
     if (!gamePaused) {
       dropPiece();
@@ -175,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Initialize game
   const startGame = () => {
     mainMenu.classList.add('hidden');
     gameContainer.classList.remove('hidden');
@@ -185,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     gameInterval = setInterval(gameLoop, 500);
   };
 
-  // Pause and resume game
   pauseButton.addEventListener('click', () => {
     gamePaused = true;
     clearInterval(gameInterval);
